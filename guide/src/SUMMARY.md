@@ -1,0 +1,17 @@
+# Summary
+
+- [Introduction](./intro.md)
+- [Architecture Overview](./architecture.md)
+- [Task List View](./task_list.md)
+- [Task Detail View](./task_detail.md)
+- [Task Create and Update](./task_create_update.md)
+- [Interface Layer](./interface.md)
+- [Application Layer: Commands and Queries](./app_layer.md)
+- [Domain Layer](./domain.md)
+- [Data Layer and SQL](./data.md)
+- [Authentication and Sessions](./auth.md)
+- [Internationalization](./i18n.md)
+- [Theming and UI Assets](./theming.md)
+- [Observability and Errors](./observability.md)
+- [Development Workflow](./dev_workflow.md)
+- [Extending the System](./extending.md)

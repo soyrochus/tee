@@ -1,0 +1,8 @@
+[book]
+title = "The Tee system - Guide to the Task Example"
+authors = ["Iwan van der Kleijn"]
+language = "en"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+

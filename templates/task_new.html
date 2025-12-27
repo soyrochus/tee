@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block title %}{{ page_texts.page_title }}{% endblock %}
+
+{% block content %}
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">{{ page_texts.heading }}</h1>
+      <p class="text-sm text-slate-600 dark:text-slate-300">{{ page_texts.subheading }}</p>
+    </div>
+  </div>
+
+  <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    {% if let Some(msg) = error_message %}
+      <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+        {{ msg }}
+      </div>
+    {% endif %}
+
+    <form method="post" action="/tasks" class="space-y-4">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+      <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+        {{ form_texts.title_label }}
+        <input
+          type="text"
+          name="title"
+          maxlength="200"
+          required
+          placeholder="{{ form_texts.title_placeholder }}"
+          class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder-slate-500"
+        />
+      </label>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+          {{ form_texts.due_date_label }}
+          <input
+            type="date"
+            name="due_at"
+            class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+          />
+        </label>
+
+        <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+          {{ form_texts.priority_label }}
+          <select
+            name="priority"
+            class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+          >
+            <option value="1">{{ form_texts.priority_1 }}</option>
+            <option value="2">{{ form_texts.priority_2 }}</option>
+            <option value="3" selected>{{ form_texts.priority_3 }}</option>
+            <option value="4">{{ form_texts.priority_4 }}</option>
+            <option value="5">{{ form_texts.priority_5 }}</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+        {{ form_texts.description_label }}
+        <textarea
+          name="description"
+          maxlength="4000"
+          rows="6"
+          required
+          placeholder="{{ form_texts.description_placeholder }}"
+          class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder-slate-500"
+        ></textarea>
+      </label>
+
+      <div class="flex gap-2">
+        <button type="submit" class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400">
+          {{ form_texts.submit_create }}
+        </button>
+        <a href="/tasks" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800">
+          {{ form_texts.cancel }}
+        </a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

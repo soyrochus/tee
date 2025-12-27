@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block title %}{{ texts.page_title }}{% endblock %}
+
+{% block content %}
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">{{ texts.heading }}</h1>
+      <p class="text-sm text-slate-600 dark:text-slate-300">{{ texts.subheading }}</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <form method="post" action="/auth/logout">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+        <button type="submit" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800">{{ texts.sign_out }}</button>
+      </form>
+      <a class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400" href="/tasks/new">
+        <span aria-hidden="true">＋</span>
+        {{ texts.new_task }}
+      </a>
+    </div>
+  </div>
+
+  <form method="get" action="/tasks" class="mt-6 grid gap-4 md:grid-cols-6">
+    <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+      {{ texts.filter_status }}
+      <select name="status" class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+        <option value="" {% if filters.status.is_none() %}selected{% endif %}>{{ texts.filter_status_all }}</option>
+        <option value="PLANNED" {% if filters.status.as_deref() == Some("PLANNED") %}selected{% endif %}>{{ status_texts.planned }}</option>
+        <option value="IN_PROGRESS" {% if filters.status.as_deref() == Some("IN_PROGRESS") %}selected{% endif %}>{{ status_texts.in_progress }}</option>
+        <option value="COMPLETED" {% if filters.status.as_deref() == Some("COMPLETED") %}selected{% endif %}>{{ status_texts.completed }}</option>
+      </select>
+    </label>
+    <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+      {{ texts.filter_search }}
+      <input type="search" name="q" value="{{ filters.q.clone().unwrap_or_default() }}" placeholder="{{ texts.filter_search_placeholder }}" class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500" />
+    </label>
+    <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+      {{ texts.filter_priority }}
+      <select name="priority" class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+        <option value="" {% if filters.priority.is_none() %}selected{% endif %}>{{ texts.filter_priority_any }}</option>
+        <option value="1" {% if filters.priority.as_deref() == Some("1") %}selected{% endif %}>{{ form_texts.priority_1 }}</option>
+        <option value="2" {% if filters.priority.as_deref() == Some("2") %}selected{% endif %}>{{ form_texts.priority_2 }}</option>
+        <option value="3" {% if filters.priority.as_deref() == Some("3") %}selected{% endif %}>{{ form_texts.priority_3 }}</option>
+        <option value="4" {% if filters.priority.as_deref() == Some("4") %}selected{% endif %}>{{ form_texts.priority_4 }}</option>
+        <option value="5" {% if filters.priority.as_deref() == Some("5") %}selected{% endif %}>{{ form_texts.priority_5 }}</option>
+      </select>
+    </label>
+    <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+      {{ texts.filter_created_after }}
+      <input type="date" name="created_after" value="{{ filters.created_after.clone().unwrap_or_default() }}" class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
+    </label>
+    <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+      {{ texts.filter_created_before }}
+      <input type="date" name="created_before" value="{{ filters.created_before.clone().unwrap_or_default() }}" class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" />
+    </label>
+    <label class="flex flex-col text-sm font-medium text-slate-700 dark:text-slate-200">
+      {{ texts.filter_sort }}
+      <select name="sort" class="mt-1 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+        <option value="" {% if filters.sort.is_none() %}selected{% endif %}>{{ texts.filter_sort_updated_default }}</option>
+        <option value="due_at" {% if filters.sort.as_deref() == Some("due_at") %}selected{% endif %}>{{ texts.filter_sort_due }}</option>
+        <option value="priority" {% if filters.sort.as_deref() == Some("priority") %}selected{% endif %}>{{ texts.filter_sort_priority }}</option>
+        <option value="updated_at" {% if filters.sort.as_deref() == Some("updated_at") %}selected{% endif %}>{{ texts.filter_sort_updated }}</option>
+      </select>
+    </label>
+    <div class="md:col-span-4 flex justify-end gap-2">
+      <a href="/tasks" class="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800">{{ texts.filter_reset }}</a>
+      <button type="submit" class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400">{{ texts.filter_apply }}</button>
+    </div>
+  </form>
+
+  <div class="mt-6 rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    {% if tasks.len() == 0 %}
+      <div class="p-6 text-sm text-slate-600 dark:text-slate-300">{{ texts.empty_state }}</div>
+    {% else %}
+      <div class="px-4 py-2 text-right text-xs text-slate-500 dark:text-slate-400 md:hidden">{{ texts.scroll_hint }}</div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200 text-sm dark:divide-slate-800">
+          <thead class="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-800 dark:text-slate-300">
+            <tr>
+              <th class="px-4 py-3">{{ texts.table_title }}</th>
+              <th class="px-4 py-3">{{ texts.table_status }}</th>
+              <th class="px-4 py-3">{{ texts.table_priority }}</th>
+              <th class="px-4 py-3">{{ texts.table_due }}</th>
+              <th class="px-4 py-3">{{ texts.table_updated }}</th>
+              <th class="px-4 py-3 text-right">{{ texts.table_actions }}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+            {% for t in tasks %}
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800">
+                <td class="px-4 py-3 font-medium text-slate-900 dark:text-slate-100">
+                  <a class="hover:text-blue-700 dark:hover:text-blue-400" href="/tasks/{{ t.id }}">{{ t.title }}</a>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="{{ t.status_class }}">{{ t.status_label }}</span>
+                </td>
+                <td class="px-4 py-3 text-slate-700 dark:text-slate-200">{{ t.priority }}</td>
+                <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{{ t.due }}</td>
+                <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{{ t.updated }}</td>
+                <td class="px-4 py-3 text-right">
+                  <a class="text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300" href="/tasks/{{ t.id }}">{{ texts.action_view }}</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

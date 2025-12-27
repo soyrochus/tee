@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Creation Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display overflow-hidden flex flex-col h-screen w-full">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e5e7eb] dark:border-[#282e39] px-10 py-3 bg-white dark:bg-[#111318] z-20 shrink-0">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Task Manager</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium leading-normal text-primary" href="#">Projects</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Calendar</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<button class="flex items-center justify-center overflow-hidden rounded-lg size-10 bg-[#f0f2f5] dark:bg-[#282e39] text-[#111318] dark:text-white hover:bg-[#e1e4e8] dark:hover:bg-[#3b4354] transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAIM2Kb3GF4iw0o81hsWCY7jLjMY-B9ZnVK1blQ2XN5fnRfhXy8f-M3FSP54FuLrvCCvCJR0cPm76XSOXAWgCs_ol5wWT7yaENjk609eN4LqFPy_Ndx-M6sr8SiguMPBux_Tzcnlua8_zBvckQrP-I4_3NpHAxAuJ4DzXscrnkiSqrTYBUCENQNwZAkB1VD9DQEmp7YGRY7jh_P57V5FUf6xULlRh_U063NXzVvAH9nNzxZr3a2nIpPssrsaKAvECJSzXb925ueC3NE");'></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 relative flex items-center justify-center p-4 md:p-10 lg:p-20 overflow-hidden">
+<!-- Background decorative element -->
+<div class="absolute inset-0 bg-gradient-to-br from-background-light to-[#e2e8f0] dark:from-background-dark dark:to-[#0f1520] -z-10"></div>
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30 pointer-events-none">
+<div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary blur-[120px] opacity-20"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-purple-600 blur-[120px] opacity-10"></div>
+</div>
+<!-- Task Creation Card/Modal -->
+<div class="w-full max-w-3xl bg-white dark:bg-[#1c222e] rounded-xl shadow-2xl border border-[#e5e7eb] dark:border-[#2f3646] flex flex-col overflow-hidden animate-fade-in-up">
+<!-- Card Header -->
+<div class="px-8 pt-8 pb-4">
+<div class="flex items-center justify-between mb-2">
+<h1 class="text-2xl font-bold text-[#111318] dark:text-white tracking-tight">Create New Task</h1>
+<button class="text-[#637588] hover:text-[#111318] dark:text-[#94a3b8] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<p class="text-sm text-[#637588] dark:text-[#94a3b8]">Fill in the details below to add a new task to your project.</p>
+</div>
+<!-- Card Body / Form -->
+<div class="px-8 py-4 flex flex-col gap-6 overflow-y-auto max-h-[60vh]">
+<!-- Task Title Input -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-[#111318] dark:text-white" for="task-title">Task Title</label>
+<div class="relative group">
+<input autofocus="" class="w-full bg-[#f8fafc] dark:bg-[#161b26] border border-[#e2e8f0] dark:border-[#3b4354] rounded-lg px-4 py-3.5 text-base text-[#111318] dark:text-white placeholder-[#94a3b8] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" id="task-title" placeholder="e.g. Redesign homepage hero section" type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</div>
+</div>
+</div>
+<!-- Priority Selection (Chips) -->
+<div class="flex flex-col gap-3">
+<label class="text-sm font-medium text-[#111318] dark:text-white">Priority Level</label>
+<div class="flex flex-wrap gap-3">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="priority" type="radio" value="low"/>
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#3b4354] bg-[#f8fafc] dark:bg-[#161b26] text-[#637588] dark:text-[#94a3b8] hover:bg-[#f1f5f9] dark:hover:bg-[#232a3b] peer-checked:bg-green-500/10 peer-checked:text-green-600 peer-checked:border-green-500 peer-checked:dark:text-green-400 transition-all select-none">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="text-sm font-medium">Low Priority</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="priority" type="radio" value="medium"/>
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#3b4354] bg-[#f8fafc] dark:bg-[#161b26] text-[#637588] dark:text-[#94a3b8] hover:bg-[#f1f5f9] dark:hover:bg-[#232a3b] peer-checked:bg-orange-500/10 peer-checked:text-orange-600 peer-checked:border-orange-500 peer-checked:dark:text-orange-400 transition-all select-none">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+<span class="text-sm font-medium">Medium Priority</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="priority" type="radio" value="high"/>
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#3b4354] bg-[#f8fafc] dark:bg-[#161b26] text-[#637588] dark:text-[#94a3b8] hover:bg-[#f1f5f9] dark:hover:bg-[#232a3b] peer-checked:bg-red-500/10 peer-checked:text-red-600 peer-checked:border-red-500 peer-checked:dark:text-red-400 transition-all select-none">
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+<span class="text-sm font-medium">High Priority</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Description Input -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-baseline">
+<label class="text-sm font-medium text-[#111318] dark:text-white" for="task-desc">Description</label>
+<span class="text-xs text-[#637588] dark:text-[#64748b]">Markdown supported</span>
+</div>
+<textarea class="w-full bg-[#f8fafc] dark:bg-[#161b26] border border-[#e2e8f0] dark:border-[#3b4354] rounded-lg px-4 py-3 text-base text-[#111318] dark:text-white placeholder-[#94a3b8] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all min-h-[160px] resize-y shadow-sm" id="task-desc" placeholder="Add details, context, subtasks, or links relating to this task..."></textarea>
+</div>
+<!-- Attachments Section (Minimal) -->
+<div class="flex items-center gap-3 pt-2">
+<button class="flex items-center gap-2 text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:text-primary dark:hover:text-primary transition-colors py-1 px-2 -ml-2 rounded hover:bg-black/5 dark:hover:bg-white/5">
+<span class="material-symbols-outlined text-[18px]">attach_file</span>
+                        Attach File
+                    </button>
+<button class="flex items-center gap-2 text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:text-primary dark:hover:text-primary transition-colors py-1 px-2 rounded hover:bg-black/5 dark:hover:bg-white/5">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Set Due Date
+                    </button>
+<button class="flex items-center gap-2 text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:text-primary dark:hover:text-primary transition-colors py-1 px-2 rounded hover:bg-black/5 dark:hover:bg-white/5">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                        Assignee
+                    </button>
+</div>
+</div>
+<!-- Card Footer / Actions -->
+<div class="px-8 py-6 bg-[#f8fafc] dark:bg-[#161b26] border-t border-[#e5e7eb] dark:border-[#2f3646] flex items-center justify-end gap-4 mt-2">
+<button class="px-5 py-2.5 rounded-lg text-sm font-medium text-[#637588] dark:text-[#94a3b8] hover:text-[#111318] dark:hover:text-white hover:bg-[#e2e8f0] dark:hover:bg-[#282e39] transition-all">
+                    Cancel
+                </button>
+<button class="px-6 py-2.5 rounded-lg text-sm font-bold text-white bg-primary hover:bg-blue-600 focus:ring-4 focus:ring-primary/30 transition-all shadow-lg shadow-primary/30 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                    Create Task
+                </button>
+</div>
+</div>
+</main>
+<style>
+        /* Custom scrollbar for the form body if it gets too long */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 20px;
+            border: 3px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(156, 163, 175, 0.8);
+        }
+    </style>
+</body></html>
