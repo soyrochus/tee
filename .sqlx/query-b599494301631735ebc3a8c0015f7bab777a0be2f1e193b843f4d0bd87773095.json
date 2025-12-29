@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE tasks\n        SET status = $2,\n            updated_at = now(),\n            row_version = row_version + 1\n        WHERE id = $1\n          AND row_version = $3\n          AND is_deleted = FALSE\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Text",
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "b599494301631735ebc3a8c0015f7bab777a0be2f1e193b843f4d0bd87773095"
+}
