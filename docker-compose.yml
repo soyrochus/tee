@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  tee:
+    image: rust:1.75-slim
+    working_dir: /app
+    command: ["bash", "-c", "cargo build --locked && cargo run"]
+    volumes:
+      - ./:/app
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/app/target
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/tee
+      BIND_ADDR: 0.0.0.0:8080
+      LOG_LEVEL: info
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tee
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+volumes:
+  cargo-cache:
+  target-cache:
+  pgdata:

@@ -1,0 +1,9 @@
+{{! mdbook head partial — contents are inserted into <head> }}
+<script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof mermaid !== 'undefined') {
+    mermaid.initialize({ startOnLoad: true });
+  }
+});
+</script>
