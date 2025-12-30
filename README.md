@@ -20,6 +20,10 @@ It demonstrates a deliberately constrained way of building business applications
 
 The included **Task** implementation is a **deliberately bounded example**. It exists to expose architectural seams, not to showcase features.
 
+See the Guide: 
+→ [`https://soyrochus.github.io/tee/`](https://soyrochus.github.io/tee/)
+
+
 For a concrete walkthrough of the example, see
 → [`docs/Tasks-Example-Implementation.md`](./docs/Tasks-Example-Implementataion.md)
 
@@ -188,6 +192,10 @@ For full setup instructions, containers, and development workflow, see
 ## Guide (mdBook)
 
 This repository includes a developer Guide built with `mdBook` in the `guide/` folder. The Guide contains walkthroughs, diagrams (Mermaid), and hands-on exercises.
+
+See the Guide on Github: 
+→ [`https://soyrochus.github.io/tee/`](https://soyrochus.github.io/tee/)
+
 
 Quick steps to run the Guide locally:
 
