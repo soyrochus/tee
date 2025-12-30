@@ -20,7 +20,7 @@ It demonstrates a deliberately constrained way of building business applications
 
 The included **Task** implementation is a **deliberately bounded example**. It exists to expose architectural seams, not to showcase features.
 
-See the Guide: 
+See the General Development Guide to get a general undestanding of the example: 
 → [`https://soyrochus.github.io/tee/`](https://soyrochus.github.io/tee/)
 
 
@@ -36,9 +36,9 @@ For the Development Guide, see
 For the details about Authentication, see
 → [`docs/Authentication.md`](./docs/Authentication.md)
 
-
 For a description on how to add an API (ReST) layer, see
 → [`docs/Add-Rest-API..md`](./docs/Add-Rest-API.md)
+
 ---
 
 ## Why the Tee System exists
